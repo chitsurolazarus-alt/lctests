@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio | L.C Digital Solution WebCraft Studios</title>
+<meta name="description" content="Explore recent web, software, design and automation projects from L.C Digital Solution WebCraft Studios.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lc-theme') || 'dark');</script>
+</head>
+<body>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><img src="assets/logo.png" alt="L.C Digital Solution logo">L.C Digital Solution</a>
+    <div class="nav-links">
+      <a href="index.html" class="">Home</a>
+<a href="services.html" class="">Services</a>
+<a href="portfolio.html" class="active">Portfolio</a>
+<a href="packages.html" class="">Packages</a>
+<a href="hosting.html" class="">Hosting</a>
+<a href="about.html" class="">About</a>
+<a href="contact.html" class="">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle theme"></button>
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button id="navBurger" class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Our Work</div>
+    <h1>Projects we're proud of</h1>
+    <p class="lede" style="margin:16px auto 0">A living record of what we've built — updated as new projects launch.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar reveal">
+      <button class="filter-btn active" data-filter="all">All Work</button>
+      <button class="filter-btn" data-filter="web-development">Web Development</button>
+      <button class="filter-btn" data-filter="software-development">Software</button>
+      <button class="filter-btn" data-filter="hosting">Hosting</button>
+      <button class="filter-btn" data-filter="graphic-design">Graphic Design</button>
+      <button class="filter-btn" data-filter="seo-marketing">SEO &amp; Marketing</button>
+      <button class="filter-btn" data-filter="ai-automation">AI &amp; Automation</button>
+    </div>
+    <div class="portfolio-grid" id="portfolioGrid">
+      <div class="empty-state" style="grid-column:1/-1"><i class="fas fa-spinner fa-spin"></i><p>Loading projects...</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="projectModal">
+  <div class="modal-box" id="modalBody"></div>
+</div>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/logo.png" alt="Logo">L.C Digital Solution</div>
+        <p style="max-width:280px">Where Pixels Meet Perfection. A South African digital agency building websites, software and brands that convert.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html#web-development">Web Development</a>
+        <a href="services.html#software-development">Software Development</a>
+        <a href="hosting.html">Hosting</a>
+        <a href="services.html#graphic-design">Graphic Design</a>
+        <a href="services.html#seo-marketing">SEO &amp; Marketing</a>
+        <a href="services.html#ai-automation">AI &amp; Automation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Tips on web, hosting &amp; growing your business online.</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="you@email.com" required>
+          <button class="btn btn-primary btn-sm" type="submit">Join</button>
+        </form>
+        <p id="newsletterNote" class="form-note"></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 L.C Digital Solution WebCraft Studios. All rights reserved.</p>
+      <div class="legal">
+        <a href="terms.html">Terms</a>
+        <a data-mail href="#">chitsurosnet@outlook.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a class="wa-float" data-whatsapp="Hi! I'd like to know more about your services." aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

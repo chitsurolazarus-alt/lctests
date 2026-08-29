@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | L.C Digital Solution</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lc-theme') || 'dark');</script>
+</head>
+<body>
+
+<div class="dash-shell" id="dashShell">
+  <div class="dash-overlay" id="dashOverlay"></div>
+  <aside class="dash-sidebar">
+    <a href="index.html" class="nav-brand"><img src="assets/logo.png" alt="Logo" style="height:30px;">L.C Digital</a>
+    <nav class="dash-nav">
+      <a href="#" data-tab-target="overview" class="active"><i class="fas fa-gauge"></i> Overview</a>
+      <a href="#" data-tab-target="portfolio"><i class="fas fa-briefcase"></i> Portfolio</a>
+      <a href="#" data-tab-target="reviews"><i class="fas fa-star"></i> Reviews</a>
+      <a href="#" data-tab-target="messages"><i class="fas fa-envelope"></i> Messages</a>
+      <a href="#" data-tab-target="invoices"><i class="fas fa-file-invoice"></i> Invoices</a>
+      <a href="#" data-tab-target="contracts"><i class="fas fa-file-signature"></i> Contracts</a>
+      <a href="#" data-tab-target="settings"><i class="fas fa-gear"></i> Settings</a>
+    </nav>
+    <div style="position:absolute;bottom:24px;left:18px;right:18px">
+      <button id="logoutBtn" class="btn btn-ghost btn-block btn-sm"><i class="fas fa-right-from-bracket"></i> Log Out</button>
+    </div>
+  </aside>
+
+  <main class="dash-main" id="dashboardContent">
+    <div class="dash-topbar">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button id="dashMenuBtn" class="dash-menu-btn" aria-label="Open menu"><i class="fas fa-bars"></i></button>
+        <div>
+          <h2>Dashboard</h2>
+          <p style="color:var(--text-lo);font-size:.9rem" id="adminEmail">Loading...</p>
+        </div>
+      </div>
+      <button id="themeToggleBtn" class="theme-btn" style="width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;background:transparent;color:var(--text-hi);"></button>
+    </div>
+
+    <!-- OVERVIEW -->
+    <section data-tab-panel="overview">
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-num" id="kpiProjects">0</div><div class="kpi-label">Total Projects</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiReviews">0</div><div class="kpi-label">Published Reviews</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiPendingReviews">0</div><div class="kpi-label">Reviews Pending</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiMessages">0</div><div class="kpi-label">Unread Enquiries</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiOutstanding">R0</div><div class="kpi-label">Outstanding (sent + overdue)</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiPaidMonth">R0</div><div class="kpi-label">Paid this month</div></div>
+      </div>
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Quick Add</h3>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" onclick="openPortfolioModal(null)"><i class="fas fa-plus"></i> Add Project</button>
+          <button class="btn btn-ghost btn-sm" onclick="openReviewModal(null)"><i class="fas fa-plus"></i> Add Review</button>
+        </div>
+      </div>
+      <div class="dash-panel">
+        <div class="dash-panel-head"><h3 style="font-size:1rem">Recent Activity</h3></div>
+        <div id="activityFeed"><p style="color:var(--text-lo);font-size:.9rem">Loading...</p></div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section data-tab-panel="portfolio" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Portfolio Projects</h3>
+          <button class="btn btn-primary btn-sm" id="addPortfolioBtn"><i class="fas fa-plus"></i> Add Project</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th>Logo</th><th>Project</th><th>Category</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="portfolioTableBody"><tr><td colspan="5"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section data-tab-panel="reviews" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Client Reviews</h3>
+          <button class="btn btn-primary btn-sm" id="addReviewBtn"><i class="fas fa-plus"></i> Add Review</button>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th>Photo</th><th>Client</th><th>Rating</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="reviewTableBody"><tr><td colspan="5"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- MESSAGES -->
+    <section data-tab-panel="messages" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head"><h3 style="font-size:1rem">Contact Enquiries</h3></div>
+        <div style="overflow-x:auto">
+          <table class="data-table">
+            <thead><tr><th>From</th><th>Service</th><th>Message</th><th>Received</th><th>Actions</th></tr></thead>
+            <tbody id="messagesTableBody"><tr><td colspan="5"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- INVOICES -->
+    <section data-tab-panel="invoices" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Invoices</h3>
+          <button class="btn btn-primary btn-sm" id="addInvoiceBtn"><i class="fas fa-plus"></i> New Invoice</button>
+        </div>
+        <div class="table-toolbar">
+          <input type="search" id="invoiceSearch" class="table-search" placeholder="Search client name…" aria-label="Search client name">
+          <select id="invoiceStatusFilter" class="table-filter" aria-label="Filter by status">
+            <option value="">All statuses</option>
+            <option value="draft">Draft</option>
+            <option value="sent">Sent</option>
+            <option value="paid">Paid</option>
+            <option value="overdue">Overdue</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table" id="invoiceTable">
+            <thead><tr><th>Invoice #</th><th>Client</th><th>Total</th><th>Status</th><th>Issue Date</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody id="invoiceTableBody"><tr><td colspan="6"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading…</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTRACTS -->
+    <section data-tab-panel="contracts" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Contracts</h3>
+          <button class="btn btn-primary btn-sm" id="addContractBtn"><i class="fas fa-plus"></i> New Contract</button>
+        </div>
+        <div class="table-toolbar">
+          <input type="search" id="contractSearch" class="table-search" placeholder="Search client name…" aria-label="Search client name">
+          <select id="contractStatusFilter" class="table-filter" aria-label="Filter by status">
+            <option value="">All statuses</option>
+            <option value="draft">Draft</option>
+            <option value="sent">Sent</option>
+            <option value="viewed">Viewed</option>
+            <option value="signed">Signed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table" id="contractTable">
+            <thead><tr><th>Client</th><th>Amount</th><th>Deposit</th><th>Status</th><th>Created</th><th style="text-align:right">Actions</th></tr></thead>
+            <tbody id="contractTableBody"><tr><td colspan="6"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading…</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <!-- SETTINGS -->
+    <section data-tab-panel="settings" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Business Settings</h3>
+          <span id="settingsStatus" class="settings-status"></span>
+        </div>
+        <p class="form-note" style="margin-bottom:18px">These details appear on your invoices &amp; contracts and are saved automatically as you type.</p>
+        <form id="settingsForm" autocomplete="off">
+          <div class="form-row">
+            <div class="form-field"><label>Company Name</label><input type="text" name="company_name"></div>
+            <div class="form-field"><label>Email</label><input type="email" name="company_email"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Registration No.</label><input type="text" name="registration_no" placeholder="e.g. 2026/418287/07"></div>
+            <div class="form-field"><label>Income Tax No.</label><input type="text" name="tax_no" placeholder="e.g. 9908446199"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Phone</label><input type="text" name="company_phone"></div>
+            <div class="form-field"><label>VAT Number</label><input type="text" name="vat_number"></div>
+          </div>
+          <div class="form-field"><label>Registered Address</label><textarea name="company_address" style="min-height:64px"></textarea></div>
+          <div class="form-field"><label>Second Office Address</label><textarea name="company_address2" style="min-height:64px"></textarea></div>
+          <div class="form-field"><label>Website</label><input type="text" name="website" placeholder="www.example.co.za"></div>
+          <div class="form-row">
+            <div class="form-field"><label>Invoice Prefix</label><input type="text" name="invoice_prefix" placeholder="INV"></div>
+            <div class="form-field"><label>Footer Note</label><input type="text" name="invoice_footer_note" placeholder="Thank you for your business."></div>
+          </div>
+
+          <h4 style="margin:14px 0 8px;font-size:.95rem">Banking Details</h4>
+          <div class="form-row">
+            <div class="form-field"><label>Bank Name</label><input type="text" name="bank_name"></div>
+            <div class="form-field"><label>Account Holder</label><input type="text" name="bank_account_holder"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Account Number</label><input type="text" name="bank_account_number"></div>
+            <div class="form-field"><label>Branch Code</label><input type="text" name="bank_branch_code"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Branch Name</label><input type="text" name="bank_branch_name" placeholder="e.g. Brooklyn"></div>
+            <div class="form-field"><label>Account Type</label><input type="text" name="bank_account_type" placeholder="e.g. Gold Business Account"></div>
+          </div>
+          <div class="form-field"><label>Swift Code</label><input type="text" name="bank_swift_code" placeholder="e.g. FIRNZAJJ"></div>
+
+          <h4 style="margin:14px 0 8px;font-size:.95rem">Letterhead / Logo</h4>
+          <div class="form-field">
+            <img id="settingsLogoPreview" class="upload-preview" style="display:none;height:72px;width:auto;border-radius:8px;margin-bottom:10px">
+            <label class="upload-drop"><i class="fas fa-cloud-arrow-up"></i> Click to upload a logo
+              <input type="file" id="settingsLogoInput" accept="image/*" style="display:none">
+            </label>
+            <span class="form-note">…or paste a logo image URL:</span>
+            <input type="url" name="logo_url" placeholder="https://…/logo.png" style="margin-top:8px">
+            <button type="button" class="btn btn-ghost btn-sm" id="settingsClearLogo" style="margin-top:8px"><i class="fas fa-eraser"></i> Remove logo</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- PORTFOLIO MODAL -->
+<div class="modal-overlay" id="portfolioModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closePortfolioModal"><i class="fas fa-times"></i></button>
+    <h3 id="portfolioModalTitle" style="margin-bottom:22px">Add Project</h3>
+    <form id="portfolioForm">
+      <div class="form-field"><label>Project Title</label><input type="text" name="title" required></div>
+      <div class="form-field"><label>Description</label><textarea name="description" required></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label>Client Name</label><input type="text" name="client"></div>
+        <div class="form-field">
+          <label>Category</label>
+          <select name="category" required>
+            <option value="web-development">Web Development</option>
+            <option value="software-development">Software Development</option>
+            <option value="hosting">Hosting</option>
+            <option value="graphic-design">Graphic Design</option>
+            <option value="seo-marketing">SEO & Marketing</option>
+            <option value="ai-automation">AI & Automation</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Project URL</label><input type="url" name="project_url" placeholder="https://"></div>
+        <div class="form-field"><label>Completion Date</label><input type="date" name="completion_date"></div>
+      </div>
+      <div class="form-field"><label>Technologies (comma-separated)</label><input type="text" name="technologies" placeholder="React, Supabase, Tailwind"></div>
+      <div class="form-field">
+        <label>Logo / Cover Image</label>
+        <img id="portfolioLogoPreview" class="upload-preview" style="display:none">
+        <label class="upload-drop"><i class="fas fa-cloud-arrow-up"></i> Click to upload an image
+          <input type="file" id="portfolioLogoInput" accept="image/*" style="display:none">
+        </label>
+      </div>
+      <div class="form-field" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" name="featured" id="featuredCheck" style="width:auto">
+        <label for="featuredCheck" style="margin:0">Feature on homepage</label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Save Project</button>
+    </form>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeReviewModal"><i class="fas fa-times"></i></button>
+    <h3 id="reviewModalTitle" style="margin-bottom:22px">Add Review</h3>
+    <form id="reviewForm">
+      <div class="form-row">
+        <div class="form-field"><label>Client Name</label><input type="text" name="name" required></div>
+        <div class="form-field"><label>Company / Position</label><input type="text" name="company"></div>
+      </div>
+      <div class="form-field"><label>Review Text</label><textarea name="review_text" required></textarea></div>
+      <div class="form-field">
+        <label>Rating</label>
+        <div class="star-input" id="starInput">
+          <i class="fas fa-star" data-star="1"></i><i class="fas fa-star" data-star="2"></i><i class="fas fa-star" data-star="3"></i><i class="fas fa-star" data-star="4"></i><i class="fas fa-star" data-star="5"></i>
+        </div>
+      </div>
+      <div class="form-field">
+        <label>Client Photo</label>
+        <img id="reviewPhotoPreview" class="upload-preview" style="display:none;border-radius:50%">
+        <label class="upload-drop"><i class="fas fa-cloud-arrow-up"></i> Click to upload a photo
+          <input type="file" id="reviewPhotoInput" accept="image/*" style="display:none">
+        </label>
+      </div>
+      <div class="form-field" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" name="approved" id="approvedCheck" style="width:auto">
+        <label for="approvedCheck" style="margin:0">Publish immediately (visible on site)</label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Save Review</button>
+    </form>
+  </div>
+</div>
+
+<!-- INVOICE MODAL -->
+<div class="modal-overlay" id="invoiceModal">
+  <div class="modal-box modal-wide">
+    <button class="modal-close" id="closeInvoiceModal" aria-label="Close"><i class="fas fa-times"></i></button>
+    <h3 id="invoiceModalTitle" style="margin-bottom:16px">New Invoice</h3>
+    <form id="invoiceForm" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label>Client Name *</label><input type="text" name="client_name" required></div>
+        <div class="form-field"><label>Client Email</label><input type="email" name="client_email"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Client Phone</label><input type="text" name="client_phone"></div>
+        <div class="form-field"><label>Client Company</label><input type="text" name="client_company"></div>
+      </div>
+      <div class="form-field"><label>Client Address</label><textarea name="client_address" style="min-height:64px"></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label>Issue Date *</label><input type="date" name="issue_date" required></div>
+        <div class="form-field"><label>Due Date</label><input type="date" name="due_date"></div>
+      </div>
+
+      <h4 style="margin:8px 0 10px;font-size:.95rem">Line Items</h4>
+      <div id="invoiceItems" class="inv-items"></div>
+      <button type="button" class="btn btn-ghost btn-sm" id="addInvoiceItemBtn"><i class="fas fa-plus"></i> Add Line Item</button>
+
+      <div class="invoice-totals">
+        <div class="form-row" style="align-items:flex-end;margin-bottom:8px">
+          <div class="form-field" style="margin-bottom:0"><label>VAT %</label><input type="number" id="invVatPercent" value="15" min="0" max="100" step="0.01"></div>
+          <div class="form-field" style="margin-bottom:0"><label>Discount (R)</label><input type="number" id="invDiscount" value="0" min="0" step="0.01"></div>
+        </div>
+        <div class="tot-row"><span>Subtotal</span><span id="invSubtotal">R0.00</span></div>
+        <div class="tot-row"><span>VAT (<span id="invVatPctLabel">15</span>%)</span><span id="invVatAmount">R0.00</span></div>
+        <div class="tot-row"><span>Discount</span><span id="invDiscountLabel">−R0.00</span></div>
+        <div class="tot-row tot-grand"><span>Total</span><span id="invTotal">R0.00</span></div>
+      </div>
+
+      <div class="form-field" style="margin-top:14px"><label>Notes / Terms</label><textarea name="notes" style="min-height:64px"></textarea></div>
+      <div class="form-field"><label>Status</label>
+        <select name="status">
+          <option value="draft">Draft</option>
+          <option value="sent" selected>Sent</option>
+          <option value="paid">Paid</option>
+          <option value="overdue">Overdue</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <p class="form-error" id="invoiceFormError" style="display:none"></p>
+      <button type="submit" class="btn btn-primary btn-block">Save Invoice</button>
+    </form>
+  </div>
+</div>
+
+<!-- INVOICE VIEW MODAL -->
+<div class="modal-overlay" id="invoiceViewModal">
+  <div class="modal-box modal-wide">
+    <button class="modal-close" id="closeInvoiceView" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div id="invoiceViewBody"></div>
+  </div>
+</div>
+
+<!-- CONTRACT MODAL -->
+<div class="modal-overlay" id="contractModal">
+  <div class="modal-box modal-wide">
+    <button class="modal-close" id="closeContractModal" aria-label="Close"><i class="fas fa-times"></i></button>
+    <h3 id="contractModalTitle" style="margin-bottom:16px">New Contract</h3>
+    <form id="contractForm" novalidate>
+      <div class="form-field"><label>Template</label>
+        <select id="contractTemplate" name="template_id"><option>Loading…</option></select>
+      </div>
+      <div class="form-row">
+        <div class="form-field"><label>Client Name *</label><input type="text" name="client_name" required></div>
+        <div class="form-field"><label>Client Email</label><input type="email" name="client_email"></div>
+      </div>
+      <div class="form-field"><label>Client Phone</label><input type="text" name="client_phone"></div>
+      <div class="form-field"><label>Service Description *</label><textarea name="service_description" required style="min-height:70px"></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label>Total Amount (R)</label><input type="number" id="contractTotal" name="total_amount" min="0" step="0.01"></div>
+        <div class="form-field"><label>Deposit %</label><input type="number" id="contractDepositPct" min="0" max="100" step="0.01"></div>
+      </div>
+      <div class="form-field"><label>Deposit Amount (R)</label><input type="number" id="contractDepositAmt" min="0" step="0.01"></div>
+      <div class="form-field">
+        <label>Contract Text <span class="muted" style="font-weight:400">(editable — this is exactly what the client signs)</span></label>
+        <textarea id="contractBody" name="contract_body" style="min-height:200px;font-family:var(--font-mono);font-size:.82rem;white-space:pre-wrap"></textarea>
+      </div>
+      <p class="form-error" id="contractFormError" style="display:none"></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-save"></i> Save Draft</button>
+        <button type="button" class="btn btn-ghost btn-sm" id="contractSendBtn"><i class="fas fa-paper-plane"></i> Save &amp; Send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- CONTRACT LINK MODAL -->
+<div class="modal-overlay" id="contractLinkModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeContractLink" aria-label="Close"><i class="fas fa-times"></i></button>
+    <h3 style="margin-bottom:12px">Contract link ready</h3>
+    <p class="muted" style="margin-bottom:14px;font-size:.9rem">Send this to your client. They can open it on their phone, read the agreement, and sign.</p>
+    <div class="form-field"><label>Shareable link</label>
+      <input type="text" id="contractLinkInput" readonly aria-label="Shareable contract link">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px">
+      <button class="btn btn-primary btn-sm" id="copyContractLink"><i class="fas fa-copy"></i> Copy Link</button>
+      <a class="btn btn-whatsapp btn-sm" id="contractWhatsappLink" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Share via WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTRACT VIEW MODAL -->
+<div class="modal-overlay" id="contractViewModal">
+  <div class="modal-box modal-wide">
+    <button class="modal-close" id="closeContractView" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div id="contractViewBody"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/invoices.js"></script>
+<script src="js/contracts.js"></script>
+<script src="js/settings.js"></script>
+<!-- PDF generation (admin only) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script>
+// Theme toggle
+document.addEventListener("DOMContentLoaded", function() {
+  const btn = document.getElementById("themeToggleBtn");
+  const theme = localStorage.getItem("lc-theme") || "dark";
+  btn.innerHTML = theme === "dark" ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  btn.addEventListener("click", function() {
+    const current = document.documentElement.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-theme", next);
+    localStorage.setItem("lc-theme", next);
+    btn.innerHTML = next === "dark" ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+  });
+});
+// Note: tab-switching is handled once, by setupTabs() in js/dashboard.js.
+// (A second, duplicate copy of this listener used to live here, so every
+// tab click ran two competing handlers.)
+</script>
+</body>
+</html>

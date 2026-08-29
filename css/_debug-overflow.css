@@ -1,0 +1,19 @@
+/* ============================================================
+   DEBUG ONLY — NOT loaded by any page in production.
+   ------------------------------------------------------------
+   This is the "red outline" scratch stylesheet from Task 1 step 6.
+   The sandbox here has no browser, so the overflow element had to be
+   found by static audit + the fixes below. To confirm visually on YOUR
+   machine (and catch anything I couldn't render):
+
+     1. Add this line inside <head> of the page you want to test:
+          <link rel="stylesheet" href="css/_debug-overflow.css">
+     2. Open the page in a phone-width view (375 / 390 / 430 px).
+     3. Any element whose RED outline pokes past the RIGHT edge of the
+        screen is the oversized element — fix that rule, then remove
+        this <link>. (Equivalent: document.documentElement.scrollWidth
+        should equal document.documentElement.clientWidth.)
+
+   Once confirmed, delete both the <link> and this file.
+   ============================================================ */
+* { outline: 1px solid red !important; }

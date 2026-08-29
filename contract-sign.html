@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Review &amp; Sign Your Contract</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  body{background:var(--bg);min-height:100vh}
+  .cs-header{display:flex;align-items:center;gap:10px;padding:18px 20px;border-bottom:1px solid var(--line)}
+  .cs-header img{height:30px}
+  .cs-header span{font-family:var(--font-display);font-weight:700}
+  .cs-main{max-width:640px;margin:0 auto;padding:22px 18px 60px}
+  .cs-card{background:var(--bg-surface);border:1px solid var(--line);border-radius:var(--radius-md);padding:24px;margin-bottom:18px}
+  .cs-client{font-family:var(--font-display);font-size:1.25rem;font-weight:600;margin-bottom:4px}
+  .cs-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+  .cs-meta div{background:var(--bg-surface-2);border-radius:var(--radius-sm);padding:12px}
+  .cs-meta .lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-lo)}
+  .cs-meta .val{font-size:1rem;font-weight:600;margin-top:3px}
+  .cs-body{white-space:pre-wrap;font-size:.92rem;line-height:1.7;color:var(--text-hi);
+    background:var(--bg-surface-2);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;margin:16px 0}
+  .sig-wrap{border:1.5px dashed var(--line);border-radius:var(--radius-sm);background:#fff;position:relative;margin:10px 0}
+  .sig-wrap canvas{display:block;width:100%;height:170px;touch-action:none;border-radius:var(--radius-sm)}
+  .sig-clear{position:absolute;top:8px;right:8px}
+  .cs-divider{height:1px;background:var(--line);margin:22px 0}
+  .form-error{display:none;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);color:#f87171;padding:12px 14px;border-radius:var(--radius-sm);font-size:.9rem;margin-top:10px}
+  .agree-row{display:flex;align-items:flex-start;gap:10px;margin:14px 0;font-size:.9rem}
+  .agree-row input{width:18px;height:18px;margin-top:2px;flex:none}
+  .cs-success{text-align:center;padding:30px 10px}
+  .cs-success i{font-size:3rem;color:var(--cyan);margin-bottom:14px}
+  @media (max-width:480px){
+    .cs-meta{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<header class="cs-header">
+  <img src="assets/logo.png" alt="Logo">
+  <span>L.C Digital Solution</span>
+</header>
+
+<main class="cs-main">
+  <div id="app">
+    <div class="cs-card"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading your contract…</p></div></div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
+<script src="js/contract-sign.js"></script>
+</body>
+</html>

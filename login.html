@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | LC Digital Solution</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #0f1115;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .login-card {
+            background: #1a1d26;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid #2a2d3a;
+        }
+        .login-card h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #a0a3b0;
+        }
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #2e3240;
+            background: #0f1115;
+            color: #fff;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: #3b82f6;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #3b82f6;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        #message {
+            margin-top: 1.2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            min-height: 1.5rem;
+        }
+        #debug {
+            margin-top: 1.5rem;
+            background: #0a0c10;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #7a7f8f;
+            font-family: monospace;
+            border: 1px solid #222;
+            min-height: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>Admin Login</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="admin@example.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••" required>
+            </div>
+            <button type="submit">Sign In</button>
+        </form>
+        
+        <div id="message"></div>
+        
+        <div id="debug">
+            <div>🔌 Checking Supabase connection...</div>
+        </div>
+    </div>
+
+    <!-- 1. Load Supabase Library FIRST -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+
+    <!-- 2. Initialize the shared Supabase client.
+         ROOT-CAUSE FIX: this used to be a hand-duplicated inline copy of
+         js/supabase-client.js, loaded from a different CDN (jsdelivr) at an
+         unpinned "@2" version, while every other page (including
+         dashboard.html) loaded the library from unpkg, also unpinned. Two
+         unpinned CDN sources can silently resolve to two different
+         @supabase/supabase-js builds, and separate client instances built
+         from different builds are not guaranteed to serialize/recognize each
+         other's session in localStorage. That let login.html and
+         dashboard.html each be "sure" of a different answer for the same
+         session, which is exactly what produces a login <-> dashboard
+         redirect ping-pong. Using the exact same file, from the exact same
+         pinned CDN version, on every page removes any chance of that
+         divergence. -->
+    <script src="js/supabase-client.js"></script>
+
+    <!-- 3. Load your auth.js file (Make sure this path is correct!) -->
+    <script src="js/auth.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "lc-digital-solution-devtools",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local dev tooling only. Not shipped to the website.",
+  "type": "module",
+  "scripts": {
+    "verify": "node scripts/verify-migration.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4"
+  },
+  "devDependencies": {
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2"
+  }
+}

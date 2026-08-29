@@ -1,0 +1,18 @@
+# Secrets / local env — NEVER commit
+.env
+.env.local
+*.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+
+# Build artifacts (none yet, but future-proof)
+dist/
+build/
+*.log

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | L.C Digital Solution WebCraft Studios</title>
+<meta name="description" content="Get in touch with L.C Digital Solution WebCraft Studios via form, WhatsApp or email.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lc-theme') || 'dark');</script>
+</head>
+<body>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><img src="assets/logo.png" alt="L.C Digital Solution logo">L.C Digital Solution</a>
+    <div class="nav-links">
+      <a href="index.html" class="">Home</a>
+<a href="services.html" class="">Services</a>
+<a href="portfolio.html" class="">Portfolio</a>
+<a href="packages.html" class="">Packages</a>
+<a href="hosting.html" class="">Hosting</a>
+<a href="about.html" class="">About</a>
+<a href="contact.html" class="active">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle theme"></button>
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button id="navBurger" class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Get In Touch</div>
+    <h1>Let's talk about your project</h1>
+    <p class="lede" style="margin:16px auto 0">Fill in the form, WhatsApp us, or send an email — whichever's easiest.</p>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container grid-2" style="align-items:start">
+    <div class="card reveal">
+      <h3 style="margin-bottom:22px">Send a message</h3>
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="form-field"><label>Full Name</label><input type="text" name="name" required></div>
+          <div class="form-field"><label>Email</label><input type="email" name="email" required></div>
+        </div>
+        <div class="form-row">
+          <div class="form-field"><label>Phone (optional)</label><input type="tel" name="phone"></div>
+          <div class="form-field">
+            <label>Service Needed</label>
+            <select name="service" required>
+              <option value="">Select a service</option>
+              <option>Web Development</option>
+              <option>Software Development</option>
+              <option>Hosting</option>
+              <option>Graphic Design</option>
+              <option>SEO & Marketing</option>
+              <option>AI & Automation</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field"><label>Message</label><textarea name="message" required placeholder="Tell us a bit about your project..."></textarea></div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message <i class="fas fa-paper-plane"></i></button>
+        <div class="form-success" id="formSuccess">Thanks — your message is in. We'll reply within one business day.</div>
+        <div class="form-error" id="formError"></div>
+      </form>
+    </div>
+
+    <div>
+      <div class="card reveal" style="margin-bottom:20px">
+        <div class="card-icon"><i class="fab fa-whatsapp"></i></div>
+        <h3>WhatsApp</h3>
+        <p style="color:var(--text-lo);margin-bottom:14px">The fastest way to reach us directly.</p>
+        <a data-whatsapp="Hi! I'd like to get in touch." class="btn btn-whatsapp btn-sm">Chat Now</a>
+      </div>
+      <div class="card reveal" style="margin-bottom:20px">
+        <div class="card-icon"><i class="fas fa-envelope"></i></div>
+        <h3>Email</h3>
+        <p style="color:var(--text-lo);margin-bottom:14px">For detailed briefs and attachments.</p>
+        <a data-mail href="#" class="btn btn-ghost btn-sm">chitsurosnet@outlook.com</a>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><i class="fas fa-clock"></i></div>
+        <h3>Hours</h3>
+        <p style="color:var(--text-lo);margin-top:8px">Monday – Friday: 08:00 – 17:00<br>Saturday: 09:00 – 13:00<br>Sunday: Closed</p>
+        <p style="color:var(--text-lo);margin-top:10px;font-size:.85rem">WhatsApp messages are monitored outside these hours too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/logo.png" alt="Logo">L.C Digital Solution</div>
+        <p style="max-width:280px">Where Pixels Meet Perfection. A South African digital agency building websites, software and brands that convert.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html#web-development">Web Development</a>
+        <a href="services.html#software-development">Software Development</a>
+        <a href="hosting.html">Hosting</a>
+        <a href="services.html#graphic-design">Graphic Design</a>
+        <a href="services.html#seo-marketing">SEO &amp; Marketing</a>
+        <a href="services.html#ai-automation">AI &amp; Automation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Stay Updated</h4>
+        <p>Tips on web, hosting &amp; growing your business online.</p>
+        <form id="newsletterForm" class="newsletter-form">
+          <input type="email" placeholder="you@email.com" required>
+          <button class="btn btn-primary btn-sm" type="submit">Join</button>
+        </form>
+        <p id="newsletterNote" class="form-note"></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 L.C Digital Solution WebCraft Studios. All rights reserved.</p>
+      <div class="legal">
+        <a href="terms.html">Terms</a>
+        <a data-mail href="#">chitsurosnet@outlook.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a class="wa-float" data-whatsapp="Hi! I'd like to know more about your services." aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
