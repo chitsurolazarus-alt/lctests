@@ -79,11 +79,14 @@ function renderContracts() {
     if (c.status !== "signed") {
       actions.push(`<button class="icon-btn" title="Cancel" onclick="cancelContract('${c.id}')"><i class="fas fa-ban"></i></button>`);
     }
+    // Retention controls: keep permanently (flag) or hard-delete.
+    actions.push(`<button class="icon-btn" title="Keep permanently" onclick="keepContractPermanently('${c.id}')"><i class="fas fa-bookmark"></i></button>`);
+    actions.push(`<button class="icon-btn icon-btn-danger" title="Delete permanently" onclick="deleteContract('${c.id}')"><i class="fas fa-trash"></i></button>`);
     return `<tr>
       <td><strong>${escapeHTML(c.client_name)}</strong></td>
       <td>${formatMoney(c.total_amount)}</td>
       <td>${formatMoney(c.deposit_amount)}</td>
-      <td>${statusBadge(c.status)}</td>
+      <td>${statusBadge(c.status)}${c.kept_permanently ? ' <span class="status-badge st-kept">Kept</span>' : ''}</td>
       <td class="muted">${formatDate(c.created_at)}</td>
       <td style="text-align:right;white-space:nowrap">${actions.join("")}</td>
     </tr>`;
@@ -301,6 +304,21 @@ async function cancelContract(id) {
   await loadContracts();
 }
 
+/* ---------- RETENTION: keep permanently OR hard-delete ---------- */
+async function keepContractPermanently(id) {
+  const { error } = await supabase.from("contracts").update({ kept_permanently: true }).eq("id", id);
+  if (error) { alert(error.message); return; }
+  await loadContracts();
+}
+
+async function deleteContract(id) {
+  if (!confirm("Permanently DELETE this contract? This removes it from the database and cannot be undone.")) return;
+  const { error } = await supabase.from("contracts").delete().eq("id", id);
+  if (error) { alert(error.message); return; }
+  closeModal("contractViewModal");
+  await loadContracts();
+}
+
 /* ---------- VIEW (incl. signed details) ---------- */
 async function viewContract(id) {
   const c = CONTRACTS.find(x => x.id === id);
@@ -333,6 +351,11 @@ async function viewContract(id) {
     <h4 style="margin:18px 0 8px">Agreement</h4>
     <div class="contract-text">${escapeHTML(row.contract_body).replace(/\n/g, "<br>")}</div>
     ${signedBlock}
+    <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+      <button class="btn btn-ghost btn-sm" onclick="keepContractPermanently('${row.id}')"><i class="fas fa-bookmark"></i> Keep permanently</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteContract('${row.id}')"><i class="fas fa-trash"></i> Delete permanently</button>
+      ${row.kept_permanently ? '<span class="status-badge st-kept" style="align-self:center">Kept permanently</span>' : ""}
+    </div>
   `;
   openModal("contractViewModal");
 }
