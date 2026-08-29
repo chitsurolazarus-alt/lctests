@@ -115,6 +115,33 @@
     <div class="testi-track" id="testiTrack">
       <div class="empty-state" style="min-width:100%"><i class="fas fa-spinner fa-spin"></i><p>Loading reviews...</p></div>
     </div>
+
+    <div class="card reveal" style="max-width:560px;margin:36px auto 0">
+      <h3 style="margin-bottom:6px">Leave a review</h3>
+      <p class="muted" style="color:var(--text-lo);font-size:.9rem;margin-bottom:18px">Tell others about your experience. Reviews appear after moderation.</p>
+      <form id="reviewForm" class="review-public-form">
+        <div class="form-field">
+          <label>Your name</label>
+          <input type="text" id="reviewName" name="name" required maxlength="80" placeholder="e.g. Thabo Mokoena">
+        </div>
+        <div class="form-field">
+          <label>Rating</label>
+          <div class="star-input" id="reviewStars" role="radiogroup" aria-label="Rating">
+            <i class="far fa-star" data-value="1"></i>
+            <i class="far fa-star" data-value="2"></i>
+            <i class="far fa-star" data-value="3"></i>
+            <i class="far fa-star" data-value="4"></i>
+            <i class="far fa-star" data-value="5"></i>
+          </div>
+        </div>
+        <div class="form-field">
+          <label>Your review</label>
+          <textarea id="reviewText" name="review_text" required maxlength="600" placeholder="Share your experience…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit Review</button>
+        <p class="form-note" id="reviewNote"></p>
+      </form>
+    </div>
   </div>
 </section>
 

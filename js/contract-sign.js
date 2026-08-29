@@ -23,6 +23,13 @@ const BUSINESS = {
   company_email: "chitsurosnet@outlook.com",
   website: "www.lcdigitalsolution.co.za",
   logo_url: "assets/lc-global-holdings-logo.jpg",
+  bank_name: "First National Bank (FNB)",
+  bank_account_holder: "LC GLOBAL HOLDINGS (PTY) LTD",
+  bank_account_number: "63219779353",
+  bank_branch_name: "Brooklyn",
+  bank_branch_code: "251345",
+  bank_account_type: "Gold Business Account",
+  bank_swift_code: "FIRNZAJJ",
 };
 
 async function loadImageInfo(url) {
@@ -321,6 +328,28 @@ async function downloadSignedContractPdf() {
       doc.addImage(signature, "PNG", margin, y, sw, sh); y += sh + 16;
     } catch (e) {}
   }
+  // Payment details (so a client knows exactly where to pay).
+  if (BUSINESS.bank_account_number) {
+    const bankLines = [
+      BUSINESS.bank_name && "Bank: " + BUSINESS.bank_name,
+      BUSINESS.bank_account_holder && "Account holder: " + BUSINESS.bank_account_holder,
+      "Account no: " + BUSINESS.bank_account_number,
+      BUSINESS.bank_account_type && "Account type: " + BUSINESS.bank_account_type,
+      BUSINESS.bank_branch_name && "Branch: " + BUSINESS.bank_branch_name,
+      BUSINESS.bank_branch_code && "Branch code: " + BUSINESS.bank_branch_code,
+      BUSINESS.bank_swift_code && "Swift: " + BUSINESS.bank_swift_code,
+    ].filter(Boolean);
+    const boxY = y + 16;
+    const boxH = 22 + bankLines.length * 12 + 4;
+    doc.setDrawColor(0, 102, 255); doc.setLineWidth(1);
+    doc.roundedRect(margin, boxY, pageW - margin * 2, boxH, 6, 6);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(0, 102, 255);
+    doc.text("PLEASE MAKE PAYMENT TO", margin + 14, boxY + 16);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(40);
+    bankLines.forEach((ln, i) => doc.text(ln, margin + 14, boxY + 32 + i * 12));
+    y = boxY + boxH + 16;
+  }
+
   drawDocFooter(doc, BUSINESS);
   const safe = String(contract.client_name || "client").replace(/\s+/g, "-").toLowerCase();
   doc.save("signed-contract-" + safe + ".pdf");

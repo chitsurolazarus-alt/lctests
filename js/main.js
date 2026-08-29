@@ -141,6 +141,51 @@ async function loadTestimonials(){
 }
 document.addEventListener("DOMContentLoaded", loadTestimonials);
 
+/* ---------- PUBLIC REVIEW SUBMISSION (home page) ---------- */
+function setupReviewForm(){
+  const form = document.getElementById("reviewForm");
+  if (!form || typeof supabase === "undefined") return;
+  const stars = document.getElementById("reviewStars");
+  const note = document.getElementById("reviewNote");
+  let rating = 0;
+
+  const paint = (n) => {
+    stars.querySelectorAll("i").forEach(i => {
+      const v = parseInt(i.dataset.value, 10);
+      i.classList.toggle("fas", v <= n);
+      i.classList.toggle("far", v > n);
+      i.classList.toggle("active", v <= n);
+    });
+  };
+  stars.querySelectorAll("i").forEach(i => {
+    i.addEventListener("click", () => { rating = parseInt(i.dataset.value, 10); paint(rating); });
+    i.addEventListener("mouseenter", () => paint(parseInt(i.dataset.value, 10)));
+  });
+  stars.addEventListener("mouseleave", () => paint(rating));
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = form.reviewName.value.trim();
+    const text = form.reviewText.value.trim();
+    if (!name) { note.textContent = "Please enter your name."; note.style.color = "#f87171"; return; }
+    if (!rating) { note.textContent = "Please choose a star rating."; note.style.color = "#f87171"; return; }
+    if (!text) { note.textContent = "Please write your review."; note.style.color = "#f87171"; return; }
+
+    const btn = form.querySelector("button[type=submit]");
+    btn.disabled = true;
+    // Inserts as approved = false (pending moderation); the RLS policy enforces this.
+    const { error } = await supabase.from("reviews").insert({ name, review_text: text, rating });
+    btn.disabled = false;
+
+    if (error) { note.textContent = "Could not submit — please try again."; note.style.color = "#f87171"; return; }
+    form.reset();
+    rating = 0; paint(0);
+    note.textContent = "Thanks! Your review will appear once it's approved.";
+    note.style.color = "#4ade80";
+  });
+}
+document.addEventListener("DOMContentLoaded", setupReviewForm);
+
 /* ---------- PORTFOLIO PREVIEW (home page — featured only) ---------- */
 async function loadPortfolioPreview(){
   const grid = document.getElementById("portfolioPreview");

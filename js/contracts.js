@@ -389,6 +389,28 @@ async function generateContractPDF(c, s) {
     }
   }
 
+  // Payment details (so a client knows exactly where to pay).
+  if (s.bank_account_number) {
+    const bankLines = [
+      s.bank_name && "Bank: " + s.bank_name,
+      s.bank_account_holder && "Account holder: " + s.bank_account_holder,
+      "Account no: " + s.bank_account_number,
+      s.bank_account_type && "Account type: " + s.bank_account_type,
+      s.bank_branch_name && "Branch: " + s.bank_branch_name,
+      s.bank_branch_code && "Branch code: " + s.bank_branch_code,
+      s.bank_swift_code && "Swift: " + s.bank_swift_code,
+    ].filter(Boolean);
+    const boxY = y + 16;
+    const boxH = 22 + bankLines.length * 12 + 4;
+    doc.setDrawColor(0, 102, 255); doc.setLineWidth(1);
+    doc.roundedRect(margin, boxY, pageW - margin * 2, boxH, 6, 6);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(9); doc.setTextColor(0, 102, 255);
+    doc.text("PLEASE MAKE PAYMENT TO", margin + 14, boxY + 16);
+    doc.setFont("helvetica", "normal"); doc.setFontSize(9); doc.setTextColor(40);
+    bankLines.forEach((ln, i) => doc.text(ln, margin + 14, boxY + 32 + i * 12));
+    y = boxY + boxH + 16;
+  }
+
   drawDocFooter(doc, s);
   doc.save(`contract-${String(c.client_name || "client").replace(/\s+/g, "-").toLowerCase()}.pdf`);
 }
