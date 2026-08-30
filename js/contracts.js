@@ -267,7 +267,17 @@ async function sendContract(id) {
 }
 
 function showContractLink(token) {
-  const base = location.origin + location.pathname.replace(/dashboard\.html$/, "contract-sign.html");
+  // Derive the origin + directory of the *current* document, then append
+  // contract-sign.html. This works regardless of how the dashboard was reached:
+  //   - GitHub Pages (repo sub-path, e.g. /repo/dashboard.html)
+  //   - Cloudflare Pages custom domain (root, e.g. /dashboard.html)
+  //   - Any other host / path structure
+  // The previous version used a regex on location.pathname that only matched
+  // /dashboard.html or /dashboard at the end. If the pathname didn't match
+  // (trailing slash, query string, different casing, etc.) the replace was a
+  // no-op, producing a broken URL like /dashboard.html/contract-sign.html that
+  // SPA fallbacks on Cloudflare Pages route back to the dashboard.
+  const base = location.origin + location.pathname.replace(/[^/]*$/, "contract-sign.html");
   const url = `${base}?token=${token}`;
   document.getElementById("contractLinkInput").value = url;
   const wa = `Hi ${""}, please review and sign your contract here: ${url}`;

@@ -3,10 +3,6 @@
 .env.local
 *.local
 
-# Node
-node_modules/
-npm-debug.log*
-
 # OS / editor
 .DS_Store
 Thumbs.db
