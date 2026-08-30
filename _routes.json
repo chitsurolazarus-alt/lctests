@@ -1,0 +1,13 @@
+{
+  "include": [
+    "/*"
+  ],
+  "exclude": [
+    "/contract-sign.html",
+    "/contract-sign",
+    "/login.html",
+    "/login",
+    "/dashboard.html",
+    "/dashboard"
+  ]
+}
