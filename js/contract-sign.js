@@ -138,24 +138,17 @@ async function loadContract() {
     }
     CONTRACT = data[0];
     if (CONTRACT.contract_status === "signed") return renderSigned(CONTRACT);
-    // Show the agreement (always visible) plus an auth-gated signing area.
+    // Show the agreement and the signing form — no login/account required.
     renderContractShell(CONTRACT);
-    await resolveSignArea(CONTRACT);
+    renderSignForm(CONTRACT);
   } catch (err) {
     console.error(err);
     renderError("Something went wrong loading this contract. Please try again or contact your provider.");
   }
 }
 
-async function getSession() {
-  try {
-    const { data: { session } } = await window.supabase.auth.getSession();
-    return session || null;
-  } catch (e) { return null; }
-}
-
 // Renders the contract preview (always visible) and an empty #signArea that
-// is filled with either the login/sign-up gate or the signing form.
+// is filled with the signing form.
 function renderContractShell(c) {
   const app = document.getElementById("app");
   app.innerHTML = `
@@ -174,13 +167,6 @@ function renderContractShell(c) {
     </div>`;
 }
 
-// Picks what goes in #signArea based on whether the visitor is logged in.
-async function resolveSignArea(c) {
-  const session = await getSession();
-  if (session) renderSignForm(c, session);
-  else renderAuthGate(c);
-}
-
 function escapeHTML(str) {
   if (str === null || str === undefined) return "";
   return String(str).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -197,118 +183,11 @@ function formatDate(s) {
     " " + d.toLocaleTimeString("en-ZA", { hour: "2-digit", minute: "2-digit" });
 }
 
-/* ---------------- AUTH GATE (login / sign up) ---------------- */
-function renderAuthGate(c) {
+/* ---------------- SIGNING FORM ---------------- */
+function renderSignForm(c) {
   const area = document.getElementById("signArea");
   if (!area) return;
   area.innerHTML = `
-    <div class="cs-auth">
-      <h4 style="margin-bottom:6px;font-size:.95rem">Sign in to continue</h4>
-      <p class="muted" style="color:var(--text-lo);font-size:.85rem;margin-bottom:14px">You need an account to sign this contract. Log in or create one — it only takes a moment.</p>
-      <div class="cs-tabs">
-        <button type="button" class="cs-tab active" id="tabLogin">Log in</button>
-        <button type="button" class="cs-tab" id="tabSignup">Create account</button>
-      </div>
-      <div class="form-field">
-        <label>Email *</label>
-        <input type="email" id="authEmail" placeholder="you@example.com" autocomplete="email">
-      </div>
-      <div class="form-field">
-        <label>Password *</label>
-        <input type="password" id="authPassword" placeholder="At least 6 characters" autocomplete="current-password">
-      </div>
-      <p class="form-error" id="authError"></p>
-      <button class="btn btn-primary btn-block" id="authSubmit" style="margin-top:6px">
-        <i class="fas fa-sign-in-alt"></i> Log in
-      </button>
-      <p class="cs-note" id="authNote"></p>
-    </div>`;
-
-  let mode = "login";
-  const tabLogin = document.getElementById("tabLogin");
-  const tabSignup = document.getElementById("tabSignup");
-  const submit = document.getElementById("authSubmit");
-  const note = document.getElementById("authNote");
-  const pw = document.getElementById("authPassword");
-
-  function setMode(m) {
-    mode = m;
-    tabLogin.classList.toggle("active", m === "login");
-    tabSignup.classList.toggle("active", m === "signup");
-    submit.innerHTML = m === "login"
-      ? '<i class="fas fa-sign-in-alt"></i> Log in'
-      : '<i class="fas fa-user-plus"></i> Create account';
-    pw.setAttribute("autocomplete", m === "login" ? "current-password" : "new-password");
-    document.getElementById("authError").style.display = "none";
-    note.textContent = "";
-  }
-  tabLogin.addEventListener("click", () => setMode("login"));
-  tabSignup.addEventListener("click", () => setMode("signup"));
-  submit.addEventListener("click", () => handleAuth(c, mode));
-}
-
-async function handleAuth(c, mode) {
-  const email = document.getElementById("authEmail").value.trim();
-  const password = document.getElementById("authPassword").value;
-  const errEl = document.getElementById("authError");
-  const note = document.getElementById("authNote");
-  const submit = document.getElementById("authSubmit");
-  errEl.style.display = "none";
-  note.textContent = "";
-
-  if (!email) return showAuthError("Please enter your email address.");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showAuthError("Please enter a valid email address.");
-  if (!password || password.length < 6) return showAuthError("Password must be at least 6 characters.");
-
-  submit.disabled = true;
-  submit.innerHTML = '<span class="spinner"></span> ' + (mode === "login" ? "Logging in…" : "Creating account…");
-
-  try {
-    let res;
-    if (mode === "login") {
-      res = await window.supabase.auth.signInWithPassword({ email, password });
-    } else {
-      res = await window.supabase.auth.signUp({ email, password });
-    }
-    if (res.error) throw res.error;
-
-    // On sign-up, Supabase may require email confirmation (no session yet).
-    if (mode === "signup" && !res.data?.session) {
-      submit.disabled = false;
-      submit.innerHTML = '<i class="fas fa-user-plus"></i> Create account';
-      note.innerHTML = `We've sent a confirmation link to <strong>${escapeHTML(email)}</strong>. Please confirm your email, then log in.`;
-      tabLogin.click();
-      return;
-    }
-
-    // Logged in — reveal the signing form.
-    if (CONTRACT) await resolveSignArea(CONTRACT);
-  } catch (err) {
-    console.error(err);
-    submit.disabled = false;
-    submit.innerHTML = mode === "login"
-      ? '<i class="fas fa-sign-in-alt"></i> Log in'
-      : '<i class="fas fa-user-plus"></i> Create account';
-    showAuthError(err.message || "Something went wrong. Please try again.");
-  }
-}
-
-function showAuthError(msg) {
-  const el = document.getElementById("authError");
-  if (!el) return;
-  el.textContent = msg; el.style.display = "block";
-}
-
-/* ---------------- SIGNING FORM (after login / sign-up) ---------------- */
-function renderSignForm(c, session) {
-  const area = document.getElementById("signArea");
-  if (!area) return;
-  const email = session?.user?.email || "";
-  area.innerHTML = `
-    <div class="cs-signedin">
-      <span><i class="fas fa-user-circle"></i> Signed in as <strong>${escapeHTML(email)}</strong></span>
-      <a id="authSwitch">Use a different account</a>
-    </div>
     <h4 style="margin:4px 0 8px;font-size:.95rem">Sign here</h4>
     <div class="form-field" style="margin-bottom:10px">
       <label>Full Name *</label>
@@ -332,10 +211,6 @@ function renderSignForm(c, session) {
       <i class="fas fa-signature"></i> Sign &amp; Submit
     </button>`;
 
-  document.getElementById("authSwitch").addEventListener("click", async () => {
-    await window.supabase.auth.signOut();
-    renderAuthGate(c);
-  });
   initSignaturePad();
   document.getElementById("signSubmit").addEventListener("click", submitSignature);
   document.getElementById("sigClear").addEventListener("click", () => PAD.clear());
