@@ -112,6 +112,75 @@ The deposit secures the Client's place in the Service Provider's work schedule a
 The remaining balance is due on completion of the solution, before the automation is deployed and handed over, unless otherwise agreed in writing.
 
 By signing below, the Client confirms that they have read, understood, and agree to these terms and conditions in full.$$,
-   50)
+   50),
+  ('Website Hosting & Monitoring Agreement (Monthly Subscription)',
+   $$This agreement is entered into between L.C Digital Solution WebCraft Studios ("the Service Provider") and {{client_name}} ("the Client") for the following ongoing website hosting and monitoring subscription:
+
+{{service_description}}
+
+The Client's website is hosted under the Service Provider's own hosting infrastructure and account. The Service Provider retains direct, exclusive access to the hosting account, server, hosting panel, and DNS records for the duration of this agreement. The Client is not given direct access to any of these, and all hosting-related administration is carried out solely by the Service Provider.
+
+MONTHLY SUBSCRIPTION FEE: R{{total_amount}}, payable in full each month, in advance. There is no deposit and no partial payment on this subscription; the full monthly fee is due upfront for each month of service.
+
+WHAT THE MONTHLY FEE COVERS:
+The monthly subscription fee keeps the Client's website online and covers ongoing uptime and performance monitoring by the Service Provider. It also includes any reasonable changes, fixes, updates, or support requests the Client needs during that month, at no extra call-out charge for standard work.
+
+PAYMENT & ARREARS:
+The monthly subscription fee is payable in advance, before the start of each month, for as long as the Client wishes to remain hosted with the Service Provider. Payment is due via EFT to the Service Provider's bank account, as set out in the banking details section of this agreement. If payment lapses or falls into arrears, the Service Provider may suspend or take the website offline until payment is received in full, and no support or update work will be carried out while the account remains in arrears.
+
+RENEWAL:
+This agreement runs on a 12-month cycle. At the end of every 12-month period, the agreement is renewable, and a renewal fee applies to continue the service into the next 12-month term, in addition to the standard monthly subscription fee. The Service Provider will notify the Client ahead of each renewal date.
+
+CANCELLATION:
+Either party may cancel this agreement by giving the other reasonable written notice (at least 30 days). On cancellation, the Client may request a handover or export of their website files, which will be provided subject to all outstanding fees being settled in full.
+
+By signing below, the Client confirms that they have read, understood, and agree to this monthly subscription, including the full-payment terms and the 12-month renewal fee described above, in full.$$,
+   0),
+  ('Database Hosting & Monitoring Agreement (Monthly Subscription)',
+   $$This agreement is entered into between L.C Digital Solution WebCraft Studios ("the Service Provider") and {{client_name}} ("the Client") for the following ongoing database hosting and monitoring subscription:
+
+{{service_description}}
+
+The Client's database is hosted, backed up, and monitored under the Service Provider's own infrastructure and account. The Service Provider retains direct, exclusive access to the database and its credentials for the duration of this agreement. The Client is not given direct access to the database, and all database administration is carried out solely by the Service Provider.
+
+MONTHLY SUBSCRIPTION FEE: R{{total_amount}}, payable in full each month, in advance. There is no deposit and no partial payment on this subscription; the full monthly fee is due upfront for each month of service.
+
+WHAT THE MONTHLY FEE COVERS:
+The monthly subscription fee keeps the Client's database online and backed up, and covers ongoing monitoring of its performance and integrity by the Service Provider. It also includes any reasonable changes, fixes, updates, or support requests the Client needs during that month, at no extra call-out charge for standard work.
+
+PAYMENT & ARREARS:
+The monthly subscription fee is payable in advance, before the start of each month, for as long as the Client wishes the Service Provider to continue hosting the database. Payment is due via EFT to the Service Provider's bank account, as set out in the banking details section of this agreement. If payment lapses or falls into arrears, the Service Provider may suspend access to or take the database offline until payment is received in full, and no support or monitoring work will be carried out while the account remains in arrears.
+
+RENEWAL:
+This agreement runs on a 12-month cycle. At the end of every 12-month period, the agreement is renewable, and a renewal fee applies to continue the service into the next 12-month term, in addition to the standard monthly subscription fee. The Service Provider will notify the Client ahead of each renewal date.
+
+CANCELLATION:
+Either party may cancel this agreement by giving the other reasonable written notice (at least 30 days). On cancellation, the Client may request a handover or export of their database, which will be provided subject to all outstanding fees being settled in full.
+
+By signing below, the Client confirms that they have read, understood, and agree to this monthly subscription, including the full-payment terms and the 12-month renewal fee described above, in full.$$,
+   0),
+  ('Database & Domain Hosting Agreement (Monthly Subscription)',
+   $$This agreement is entered into between L.C Digital Solution WebCraft Studios ("the Service Provider") and {{client_name}} ("the Client") for the following ongoing database and domain hosting subscription:
+
+{{service_description}}
+
+The Client's database is hosted, backed up, and monitored under the Service Provider's own infrastructure and account, and the Client's domain is managed and renewed by the Service Provider, all under the Service Provider's exclusive access and control. The Service Provider retains direct, exclusive access to the database, its credentials, and the domain registration account for the duration of this agreement. The Client is not given direct access to any of these.
+
+MONTHLY SUBSCRIPTION FEE: R{{total_amount}}, payable in full each month, in advance. There is no deposit and no partial payment on this subscription; the full monthly fee is due upfront for each month of service.
+
+WHAT THE MONTHLY FEE COVERS:
+The monthly subscription fee keeps the Client's database online and backed up, covers ongoing monitoring of its performance and integrity, and includes management and timely renewal of the Client's domain by the Service Provider so that it does not lapse or expire. Domain renewal is handled by the Service Provider as part of this subscription, not the Client's own responsibility, unlike the Service Provider's one-off hosting arrangement. The monthly fee also includes any reasonable changes, fixes, updates, or support requests the Client needs during that month, at no extra call-out charge for standard work.
+
+PAYMENT & ARREARS:
+The monthly subscription fee is payable in advance, before the start of each month, for as long as the Client wishes the Service Provider to continue managing the database and domain. Payment is due via EFT to the Service Provider's bank account, as set out in the banking details section of this agreement. If payment lapses or falls into arrears, the Service Provider may suspend access to the database or place the domain administration on hold until payment is received in full, and no support, monitoring, or renewal work will be carried out while the account remains in arrears.
+
+RENEWAL:
+This agreement runs on a 12-month cycle. At the end of every 12-month period, the agreement is renewable, and a renewal fee applies to continue the service into the next 12-month term, in addition to the standard monthly subscription fee. The Service Provider will notify the Client ahead of each renewal date.
+
+CANCELLATION:
+Either party may cancel this agreement by giving the other reasonable written notice (at least 30 days). On cancellation, the Client may request a handover or export of their database and domain management details, which will be provided subject to all outstanding fees being settled in full.
+
+By signing below, the Client confirms that they have read, understood, and agree to this monthly subscription, including the full-payment terms and the 12-month renewal fee described above, in full.$$,
+   0)
 ) as t(name, body, default_deposit_percent)
 where not exists (select 1 from contract_templates c where c.name = t.name);

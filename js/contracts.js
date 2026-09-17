@@ -145,8 +145,8 @@ function currentPreviewValues() {
   return {
     client_name: form.client_name.value.trim(),
     service_description: form.service_description.value.trim(),
-    total_amount: formatMoney(total),
-    deposit_amount: formatMoney(amt),
+    total_amount: formatAmountPlain(total),
+    deposit_amount: formatAmountPlain(amt),
     deposit_percent: round2(pct),
   };
 }
@@ -452,6 +452,12 @@ async function generateContractPDF(c, s) {
 function formatMoney(n) {
   const v = Number(n) || 0;
   return "R" + v.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+// Same formatting as formatMoney but without the "R" prefix — template
+// bodies already write a literal "R" before {{total_amount}}/{{deposit_amount}}.
+function formatAmountPlain(n) {
+  const v = Number(n) || 0;
+  return v.toLocaleString("en-ZA", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 function formatDate(s) {
   if (!s) return "—";
