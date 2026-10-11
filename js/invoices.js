@@ -306,7 +306,7 @@ async function viewInvoice(id) {
       <button class="btn btn-primary btn-sm" onclick="downloadInvoicePDF('${inv.id}')"><i class="fas fa-file-pdf"></i> Download PDF</button>
       ${inv.status !== 'paid' && inv.status !== 'cancelled' ? `<button class="btn btn-ghost btn-sm" onclick="markInvoicePaid('${inv.id}');closeModal('invoiceViewModal')"><i class="fas fa-check"></i> Mark as Paid</button>` : ""}
     </div>
-    <p class="form-note" style="margin-top:14px">If the file opens instead of downloading on iPhone, tap the share icon and choose “Save to Files”.</p>`;
+    <p class="form-note" style="margin-top:14px">On iPhone, tapping Download PDF opens the share sheet — choose “Save to Files” or share it directly.</p>`;
   openModal("invoiceViewModal");
 }
 
@@ -544,7 +544,7 @@ async function generateInvoicePDF(inv, s) {
   }
 
   drawDocFooter(doc, s);
-  doc.save(`${inv.invoice_number}.pdf`);
+  await savePdf(doc, `${inv.invoice_number}.pdf`);
 }
 
 /* ---------- HELPERS ---------- */

@@ -363,7 +363,7 @@ async function downloadSignedContractPdf() {
 
   drawDocFooter(doc, BUSINESS);
   const safe = String(contract.client_name || "client").replace(/\s+/g, "-").toLowerCase();
-  doc.save("signed-contract-" + safe + ".pdf");
+  await savePdf(doc, "signed-contract-" + safe + ".pdf");
 }
 
 function renderError(msg) {

@@ -445,7 +445,7 @@ async function generateContractPDF(c, s) {
   }
 
   drawDocFooter(doc, s);
-  doc.save(`contract-${String(c.client_name || "client").replace(/\s+/g, "-").toLowerCase()}.pdf`);
+  await savePdf(doc, `contract-${String(c.client_name || "client").replace(/\s+/g, "-").toLowerCase()}.pdf`);
 }
 
 /* ---------- HELPERS (shared with invoices.js) ---------- */

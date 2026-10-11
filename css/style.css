@@ -420,7 +420,12 @@ table.data-table th:last-child,table.data-table td:last-child{text-align:left}
 
 .inv-items{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .inv-item{display:grid;grid-template-columns:1fr 70px 110px 86px 34px;gap:8px;align-items:center}
-.inv-item input{padding:10px 12px}
+.inv-item input{
+  width:100%;min-width:0;padding:10px 12px;border-radius:var(--radius-sm);border:1px solid var(--line);
+  background:var(--bg-surface-2);color:var(--text-hi);caret-color:var(--text-hi);
+}
+.inv-item input::placeholder{color:var(--text-lo);opacity:.8}
+.inv-item input:focus{border-color:var(--primary-2);outline:none}
 .inv-line-total{font-family:var(--font-mono);font-size:.85rem;font-weight:600;text-align:right;white-space:nowrap}
 .inv-item-remove{flex:none;width:34px;height:36px;border-radius:8px;border:1px solid var(--line);color:var(--text-lo);display:inline-flex;align-items:center;justify-content:center}
 .inv-item-remove:hover{color:#f87171;border-color:#f87171}
@@ -568,3 +573,139 @@ table.data-table th:last-child,table.data-table td:last-child{text-align:left}
   .nav-burger{width:34px;height:34px}
 }
 
+
+/* ============================================================
+   GRAPHIC DESIGN PAGE + ADMIN PANELS
+   ============================================================ */
+
+/* 8 nav links now: tighten padding on mid-width desktops so the bar never wraps */
+@media (min-width:921px) and (max-width:1180px){
+  .nav-links a{padding:9px 9px;font-size:.85rem}
+  .nav-brand{font-size:.95rem}
+}
+
+/* ---------- category filter (scrolls sideways on mobile) ---------- */
+.gd-filter{
+  display:flex;gap:10px;margin:0 0 32px;padding:4px 2px 10px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:thin;
+  scroll-snap-type:x proximity;
+}
+.gd-filter[hidden]{display:none}
+.gd-filter .filter-btn{flex:0 0 auto;min-height:44px;white-space:nowrap;scroll-snap-align:start;cursor:pointer;background:transparent}
+.gd-filter .filter-btn:hover{color:var(--text-hi);border-color:var(--primary-2)}
+@media (min-width:901px){.gd-filter{flex-wrap:wrap;justify-content:center;overflow:visible}}
+
+/* ---------- service cards ---------- */
+.gd-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:1000px){.gd-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:640px){.gd-grid{grid-template-columns:1fr}}
+.gd-card{
+  display:flex;flex-direction:column;gap:10px;padding:24px;
+  background:var(--bg-surface);border:1px solid var(--line);border-radius:var(--radius-md);
+  transition:transform .3s var(--ease),border-color .25s,box-shadow .3s;
+}
+.gd-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.gd-card.selected{border-color:var(--primary-2);box-shadow:0 0 0 1px var(--primary-2)}
+.gd-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px}
+.gd-card-top .card-icon{margin:0}
+.gd-card-img{width:64px;height:64px;border-radius:12px;object-fit:cover;background:var(--bg-surface-2)}
+.gd-card-top .tag-pill{margin:0;text-align:right}
+.gd-card h3{font-size:1.1rem}
+.gd-card > p{color:var(--text-lo);font-size:.9rem;flex:1}
+.gd-card-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px;padding-top:14px;border-top:1px solid var(--line);flex-wrap:wrap}
+.gd-price{font-family:var(--font-mono);font-weight:700;font-size:.95rem}
+.gd-price.quote{color:var(--text-lo);font-weight:600;font-family:var(--font-body)}
+.gd-select-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;min-width:44px;padding:10px 18px;border-radius:100px;cursor:pointer;
+  border:1px solid var(--primary-2);color:var(--primary-2);background:transparent;
+  font-size:.85rem;font-weight:600;transition:background .2s,color .2s;
+}
+.gd-select-btn:hover{background:rgba(0,102,255,.1)}
+.gd-select-btn.on{background:var(--primary);border-color:var(--primary);color:#fff}
+.gd-skeleton{min-height:230px;border-radius:var(--radius-md);background:linear-gradient(100deg,var(--bg-surface) 30%,var(--bg-surface-2) 50%,var(--bg-surface) 70%);background-size:200% 100%;animation:gdShimmer 1.4s linear infinite}
+@keyframes gdShimmer{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.gd-skeleton{animation:none}}
+
+.gd-selected-bar{
+  position:sticky;bottom:16px;margin:26px auto 0;max-width:460px;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+  padding:12px 16px;border-radius:100px;background:var(--bg-surface);border:1px solid var(--primary-2);box-shadow:var(--shadow);
+  font-weight:600;font-size:.9rem;
+}
+.gd-selected-bar[hidden]{display:none}
+@media (max-width:480px){.gd-selected-bar{border-radius:var(--radius-md);justify-content:center;text-align:center}}
+
+/* ---------- how it works ---------- */
+.gd-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media (max-width:900px){.gd-steps{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.gd-steps{grid-template-columns:1fr}}
+.gd-steps .card{position:relative}
+.gd-step-num{
+  display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;margin-bottom:14px;
+  background:linear-gradient(135deg,var(--primary),var(--cyan));color:#fff;font-family:var(--font-mono);font-weight:700;
+}
+
+/* ---------- quote form ---------- */
+.gd-form{max-width:860px;margin:0 auto;padding:34px}
+@media (max-width:560px){.gd-form{padding:22px 16px}}
+.gd-form input[type=file]{padding:10px;min-height:48px;width:100%}
+.gd-form input,.gd-form select,.gd-form textarea{min-height:48px}
+.gd-form :focus-visible,.gd-filter .filter-btn:focus-visible,.gd-select-btn:focus-visible,.gd-check:focus-within{
+  outline:2px solid var(--cyan);outline-offset:2px;
+}
+.gd-fieldset{border:1px solid var(--line);border-radius:var(--radius-md);padding:18px 18px 8px;margin:6px 0 20px;min-width:0}
+.gd-fieldset legend{padding:0 8px;font-size:.85rem;font-weight:600}
+.gd-check-group{margin-bottom:16px}
+.gd-check-group h4{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-lo);margin-bottom:8px}
+.gd-check-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media (max-width:640px){.gd-check-list{grid-template-columns:1fr}}
+.gd-check{
+  display:flex;align-items:center;gap:12px;min-height:44px;padding:8px 12px;
+  border:1px solid var(--line);border-radius:var(--radius-sm);cursor:pointer;font-size:.9rem;transition:border-color .2s,background .2s;
+}
+.gd-check:hover{border-color:var(--primary-2)}
+.gd-check input{width:20px;height:20px;min-height:0;flex:0 0 20px;accent-color:var(--primary);margin:0}
+.gd-check:has(input:checked){border-color:var(--primary-2);background:rgba(0,102,255,.08)}
+.gd-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.gd-form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.gd-form-actions .btn{min-height:48px}
+@media (max-width:560px){.gd-form-actions .btn{width:100%;justify-content:center}}
+
+/* ---------- admin: sidebar group, badge, chips, panels ---------- */
+.dash-sidebar{overflow-y:auto;display:flex;flex-direction:column}
+.dash-logout{margin-top:auto;padding-top:24px}
+.dash-nav-label{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--text-lo);padding:16px 14px 6px}
+.nav-badge{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:100px;background:var(--primary);color:#fff;font-size:.72rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center}
+.nav-badge[hidden]{display:none}
+.chip{display:inline-block;font-size:.74rem;padding:4px 10px;border-radius:100px;background:var(--bg-surface-2);border:1px solid var(--line);margin:0 6px 6px 0}
+.gd-admin-toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+.gd-admin-toolbar .table-search{flex:1 1 200px}
+.gd-qr-detail dl{display:grid;grid-template-columns:130px 1fr;gap:10px 14px;margin:14px 0}
+.gd-qr-detail dt{color:var(--text-lo);font-size:.82rem}
+.gd-qr-detail dd{font-size:.92rem;margin:0}
+@media (max-width:560px){.gd-qr-detail dl{grid-template-columns:1fr;gap:2px}.gd-qr-detail dt{margin-top:10px}}
+.gd-qr-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.st-new{background:rgba(0,102,255,.15);color:var(--primary-2)}
+.st-contacted{background:rgba(255,176,32,.15);color:var(--amber)}
+.st-quoted{background:rgba(124,108,255,.18);color:var(--violet)}
+.st-won{background:rgba(74,222,128,.15);color:#4ade80}
+.st-lost{background:rgba(248,113,113,.15);color:#f87171}
+.dash-main .icon-btn{min-width:40px;min-height:40px}
+
+/* ---------- iPhone PDF share sheet ---------- */
+.pdf-sheet{position:fixed;inset:0;z-index:3000;display:flex;align-items:flex-end;justify-content:center;background:rgba(3,6,15,.65);backdrop-filter:blur(4px);padding:16px}
+.pdf-sheet-box{width:100%;max-width:420px;background:var(--bg-surface);border:1px solid var(--line);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow);padding-bottom:max(22px,env(safe-area-inset-bottom))}
+.pdf-sheet-box h3{font-size:1.05rem;margin-bottom:6px}
+.pdf-sheet-box p{font-size:.88rem;color:var(--text-lo);margin-bottom:16px;word-break:break-all}
+.pdf-sheet-box .btn{width:100%;justify-content:center;margin-bottom:10px;min-height:48px}
+
+/* ---------- dashboard: stop wide tables from stretching the page on phones ---------- */
+.dash-main{min-width:0}
+.dash-shell{grid-template-columns:240px minmax(0,1fr)}
+@media (max-width:900px){.dash-shell{grid-template-columns:minmax(0,1fr)}}
+
+/* ---------- safety net: bare inputs (outside .form-field) are always readable ---------- */
+[data-theme="dark"] input,[data-theme="dark"] textarea,[data-theme="dark"] select{color-scheme:dark}
+[data-theme="light"] input,[data-theme="light"] textarea,[data-theme="light"] select{color-scheme:light}
+select option{background:var(--bg-surface);color:var(--text-hi)}

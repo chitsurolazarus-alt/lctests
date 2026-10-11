@@ -22,3 +22,10 @@ is safe.
 
 These numbered files replace the older `migration-invoicing-contracts.sql`. Use the
 numbered files, not the old one.
+
+## Graphic Design (added later)
+
+6. `08_graphic_design.sql` — `graphic_design_services` + `design_quote_requests` tables, RLS
+   (public: read visible services / insert quote requests only; admin: everything), the private
+   `design-briefs` storage bucket (10 MB, images/PDF/DOCX) and 21 seeded services (prices empty).
+   Idempotent — safe to re-run.

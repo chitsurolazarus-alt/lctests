@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Graphic Design | L.C Digital Solution WebCraft Studios</title>
+<meta name="description" content="Logos, business documents, print and digital visuals that make your business look established. Request a graphic design quote from L.C Digital Solution WebCraft Studios.">
+<link rel="canonical" href="https://www.lcdigitalsolution.co.za/graphic-design.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Graphic Design | L.C Digital Solution WebCraft Studios">
+<meta property="og:description" content="Logos, business documents, print and digital visuals that make your business look established.">
+<meta property="og:url" content="https://www.lcdigitalsolution.co.za/graphic-design.html">
+<meta property="og:image" content="https://www.lcdigitalsolution.co.za/assets/logo.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script>document.documentElement.setAttribute('data-theme', localStorage.getItem('lc-theme') || 'dark');</script>
+</head>
+<body>
+<nav class="nav">
+  <div class="container">
+    <a href="index.html" class="nav-brand"><img src="assets/logo.png" alt="L.C Digital Solution logo">L.C Digital Solution</a>
+    <div class="nav-links">
+      <a href="index.html" class="">Home</a>
+<a href="services.html" class="">Services</a>
+<a href="graphic-design.html" class="active" aria-current="page">Graphic Design</a>
+<a href="portfolio.html" class="">Portfolio</a>
+<a href="packages.html" class="">Packages</a>
+<a href="hosting.html" class="">Hosting</a>
+<a href="about.html" class="">About</a>
+<a href="contact.html" class="">Contact</a>
+    </div>
+    <div class="nav-actions">
+      <button id="themeToggleBtn" class="theme-btn" aria-label="Toggle theme"></button>
+      <a href="contact.html" class="btn btn-primary btn-sm">Get Quote</a>
+      <button id="navBurger" class="nav-burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</nav>
+
+<!-- 1. HERO -->
+<header class="page-header gd-hero">
+  <div class="container">
+    <div class="eyebrow" style="justify-content:center">Graphic Design</div>
+    <h1>Design that makes your business look established</h1>
+    <p class="lede" style="margin:16px auto 0">Logos, documents, print and digital visuals that make your business look established.</p>
+    <div class="hero-ctas" style="justify-content:center;margin:30px 0 0">
+      <a href="#quote" class="btn btn-primary">Request a Design Quote <i class="fas fa-arrow-down"></i></a>
+      <a data-whatsapp="Hi! I'd like to chat about a graphic design project." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<!-- 2. SERVICES -->
+<section class="section" id="services" style="padding-top:20px">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center">What We Design</div>
+      <h2>Pick what you need</h2>
+      <p class="lede" style="margin:14px auto 0">Tap <strong>Select</strong> on anything you like and it is added to your quote request below.</p>
+    </div>
+
+    <div class="gd-filter" id="gdFilter" role="tablist" aria-label="Filter services by category"></div>
+
+    <div class="gd-grid" id="gdGrid" aria-live="polite" aria-busy="true">
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+      <div class="gd-card gd-skeleton" aria-hidden="true"></div>
+    </div>
+
+    <div class="gd-selected-bar" id="gdSelectedBar" hidden>
+      <span id="gdSelectedCount">0 selected</span>
+      <a href="#quote" class="btn btn-primary btn-sm">Go to quote form <i class="fas fa-arrow-down"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- 3. HOW IT WORKS -->
+<section class="section" style="background:var(--bg-surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center">How It Works</div>
+      <h2>From brief to final files in four steps</h2>
+    </div>
+    <ol class="gd-steps">
+      <li class="card reveal"><span class="gd-step-num">1</span><h3>Brief</h3><p>Tell us what you need, your brand colours, and any examples you like.</p></li>
+      <li class="card reveal"><span class="gd-step-num">2</span><h3>Concept</h3><p>We design a first concept and send it to you for review.</p></li>
+      <li class="card reveal"><span class="gd-step-num">3</span><h3>Revisions</h3><p>We refine the design with your feedback until it is exactly right.</p></li>
+      <li class="card reveal"><span class="gd-step-num">4</span><h3>Final files</h3><p>You receive print-ready and web-ready files, organised and ready to use.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4. RECENT DESIGN WORK (hidden unless portfolio has graphic-design items) -->
+<section class="section" id="recentWork" hidden>
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center">Recent Design Work</div>
+      <h2>A few things we have designed</h2>
+    </div>
+    <div class="portfolio-grid" id="gdPortfolio"></div>
+    <div class="text-center mt-lg"><a href="portfolio.html" class="btn btn-ghost">View Full Portfolio <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<!-- 5. QUOTE FORM -->
+<section class="section" id="quote">
+  <div class="container">
+    <div class="section-head center reveal">
+      <div class="eyebrow" style="justify-content:center">Free Quote</div>
+      <h2>Request a design quote</h2>
+      <p class="lede" style="margin:14px auto 0">Tell us what you need and we will come back with a clear price and timeline.</p>
+    </div>
+
+    <form id="gdQuoteForm" class="gd-form card" novalidate>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="gdName">Full name *</label>
+          <input type="text" id="gdName" name="name" autocomplete="name" maxlength="120" required>
+        </div>
+        <div class="form-field">
+          <label for="gdEmail">Email *</label>
+          <input type="email" id="gdEmail" name="email" autocomplete="email" maxlength="200" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="gdPhone">Phone / WhatsApp</label>
+          <input type="tel" id="gdPhone" name="phone" autocomplete="tel" maxlength="30" placeholder="e.g. 076 095 0954">
+        </div>
+        <div class="form-field">
+          <label for="gdCompany">Company</label>
+          <input type="text" id="gdCompany" name="company" autocomplete="organization" maxlength="120">
+        </div>
+      </div>
+
+      <fieldset class="gd-fieldset">
+        <legend>What do you need? * <span class="form-note" style="display:inline">(tick all that apply)</span></legend>
+        <div id="gdChecklist"><p class="form-note">Loading services…</p></div>
+      </fieldset>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label for="gdBudget">Budget</label>
+          <select id="gdBudget" name="budget">
+            <option value="">Select a budget range</option>
+            <option>Under R500</option>
+            <option>R500 – R1 500</option>
+            <option>R1 500 – R5 000</option>
+            <option>R5 000 – R15 000</option>
+            <option>R15 000+</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="gdDeadline">Deadline</label>
+          <input type="date" id="gdDeadline" name="deadline">
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="gdDetails">Project details</label>
+        <textarea id="gdDetails" name="details" maxlength="3000" placeholder="Brand colours, text to include, sizes, examples you like…"></textarea>
+      </div>
+
+      <div class="form-field">
+        <label for="gdFile">Attach a file <span class="form-note" style="display:inline">(optional — image, PDF or DOCX, max 10 MB)</span></label>
+        <input type="file" id="gdFile" name="file" accept=".jpg,.jpeg,.png,.webp,.gif,.pdf,.docx,image/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+      </div>
+
+      <!-- honeypot: real visitors never see or fill this -->
+      <div class="gd-hp" aria-hidden="true"><label>Leave empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+      <p class="form-error" id="gdFormError" role="alert" style="display:none"></p>
+      <p class="form-success" id="gdFormSuccess" role="status" style="display:none"><i class="fas fa-circle-check"></i> Thank you! Your design request has been received. We will contact you shortly with a quote.</p>
+
+      <div class="gd-form-actions">
+        <button type="submit" class="btn btn-primary" id="gdSubmit">Send Quote Request <i class="fas fa-paper-plane"></i></button>
+        <button type="button" class="btn btn-whatsapp" id="gdWhatsAppBtn"><i class="fab fa-whatsapp"></i> Send on WhatsApp instead</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- 6. CTA -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="cta-band reveal">
+      <h2>Ready to look established?</h2>
+      <p class="lede" style="margin:16px auto 30px">Send us your brief today — most quotes come back within one business day.</p>
+      <div class="hero-ctas" style="justify-content:center;margin-bottom:0">
+        <a href="#quote" class="btn btn-primary">Request a Design Quote</a>
+        <a data-whatsapp="Hi! I'd like a graphic design quote." class="btn btn-whatsapp" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand"><img src="assets/logo.png" alt="Logo">L.C Digital Solution</div>
+        <p style="max-width:280px">Where Pixels Meet Perfection. A South African digital agency building websites, software and brands that convert.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a data-whatsapp aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+        <a href="terms.html">Terms &amp; Conditions</a>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html#web-development">Web Development</a>
+        <a href="services.html#software-development">Software Development</a>
+        <a href="hosting.html">Hosting</a>
+        <a href="graphic-design.html">Graphic Design</a>
+        <a href="services.html#seo-marketing">SEO &amp; Marketing</a>
+        <a href="services.html#ai-automation">AI &amp; Automation</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 L.C Digital Solution WebCraft Studios. All rights reserved.</p>
+      <div class="legal">
+        <a href="terms.html">Terms</a>
+        <a data-mail href="#">chitsurosnet@outlook.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<a class="wa-float" data-whatsapp="Hi! I'd like to know more about your graphic design services." aria-label="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/main.js"></script>
+<script src="js/graphic-design.js"></script>
+</body>
+</html>

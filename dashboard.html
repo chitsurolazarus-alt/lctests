@@ -23,11 +23,15 @@
       <a href="#" data-tab-target="portfolio"><i class="fas fa-briefcase"></i> Portfolio</a>
       <a href="#" data-tab-target="reviews"><i class="fas fa-star"></i> Reviews</a>
       <a href="#" data-tab-target="messages"><i class="fas fa-envelope"></i> Messages</a>
+      <div class="dash-nav-label">Graphic Design</div>
+      <a href="#" data-tab-target="gd-services"><i class="fas fa-palette"></i> Design Services</a>
+      <a href="#" data-tab-target="gd-quotes"><i class="fas fa-file-pen"></i> Design Quotes <span class="nav-badge" id="gdQuotesBadge" hidden>0</span></a>
+      <div class="dash-nav-label">Business</div>
       <a href="#" data-tab-target="invoices"><i class="fas fa-file-invoice"></i> Invoices</a>
       <a href="#" data-tab-target="contracts"><i class="fas fa-file-signature"></i> Contracts</a>
       <a href="#" data-tab-target="settings"><i class="fas fa-gear"></i> Settings</a>
     </nav>
-    <div style="position:absolute;bottom:24px;left:18px;right:18px">
+    <div class="dash-logout">
       <button id="logoutBtn" class="btn btn-ghost btn-block btn-sm"><i class="fas fa-right-from-bracket"></i> Log Out</button>
     </div>
   </aside>
@@ -51,6 +55,7 @@
         <div class="kpi-card"><div class="kpi-num" id="kpiReviews">0</div><div class="kpi-label">Published Reviews</div></div>
         <div class="kpi-card"><div class="kpi-num" id="kpiPendingReviews">0</div><div class="kpi-label">Reviews Pending</div></div>
         <div class="kpi-card"><div class="kpi-num" id="kpiMessages">0</div><div class="kpi-label">Unread Enquiries</div></div>
+        <div class="kpi-card"><div class="kpi-num" id="kpiDesignQuotes">0</div><div class="kpi-label">New design quotes</div></div>
         <div class="kpi-card"><div class="kpi-num" id="kpiOutstanding">R0</div><div class="kpi-label">Outstanding (sent + overdue)</div></div>
         <div class="kpi-card"><div class="kpi-num" id="kpiPaidMonth">R0</div><div class="kpi-label">Paid this month</div></div>
       </div>
@@ -109,6 +114,50 @@
           <table class="data-table">
             <thead><tr><th>From</th><th>Service</th><th>Message</th><th>Received</th><th>Actions</th></tr></thead>
             <tbody id="messagesTableBody"><tr><td colspan="5"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading...</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAPHIC DESIGN: SERVICES -->
+    <section data-tab-panel="gd-services" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head">
+          <h3 style="font-size:1rem">Design Services</h3>
+          <button class="btn btn-primary btn-sm" id="gdAddServiceBtn"><i class="fas fa-plus"></i> Add Service</button>
+        </div>
+        <div class="gd-admin-toolbar">
+          <input type="search" id="gdSvcSearch" class="table-search" placeholder="Search services…" aria-label="Search services">
+          <select id="gdSvcCategoryFilter" class="table-filter" aria-label="Filter by category"><option value="">All categories</option></select>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Image</th><th>Service</th><th>Category</th><th>Price</th><th>Status</th><th>Order</th><th>Actions</th></tr></thead>
+            <tbody id="gdServicesBody"><tr><td colspan="7"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading…</p></div></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- GRAPHIC DESIGN: QUOTE REQUESTS -->
+    <section data-tab-panel="gd-quotes" style="display:none">
+      <div class="dash-panel">
+        <div class="dash-panel-head"><h3 style="font-size:1rem">Design Quote Requests</h3></div>
+        <div class="gd-admin-toolbar">
+          <input type="search" id="gdQuoteSearch" class="table-search" placeholder="Search name, email or company…" aria-label="Search quote requests">
+          <select id="gdQuoteStatusFilter" class="table-filter" aria-label="Filter by status">
+            <option value="">All statuses</option>
+            <option value="new">New</option>
+            <option value="contacted">Contacted</option>
+            <option value="quoted">Quoted</option>
+            <option value="won">Won</option>
+            <option value="lost">Lost</option>
+          </select>
+        </div>
+        <div class="table-scroll">
+          <table class="data-table">
+            <thead><tr><th>Received</th><th>Client</th><th>Services</th><th>Budget</th><th>Status</th><th>Actions</th></tr></thead>
+            <tbody id="gdQuotesBody"><tr><td colspan="6"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Loading…</p></div></td></tr></tbody>
           </table>
         </div>
       </div>
@@ -225,6 +274,54 @@
       </div>
     </section>
   </main>
+</div>
+
+<!-- DESIGN SERVICE MODAL -->
+<div class="modal-overlay" id="gdServiceModal">
+  <div class="modal-box">
+    <button class="modal-close" id="closeGdServiceModal" aria-label="Close"><i class="fas fa-times"></i></button>
+    <h3 id="gdServiceModalTitle" style="margin-bottom:22px">Add Design Service</h3>
+    <form id="gdServiceForm" novalidate>
+      <div class="form-row">
+        <div class="form-field"><label for="gdSvcCategory">Category *</label>
+          <input type="text" id="gdSvcCategory" name="category" list="gdCategoryOptions" maxlength="80" required placeholder="Pick or type a new one">
+          <datalist id="gdCategoryOptions"></datalist>
+        </div>
+        <div class="form-field"><label for="gdSvcTitle">Title *</label><input type="text" id="gdSvcTitle" name="title" maxlength="120" required></div>
+      </div>
+      <div class="form-field"><label for="gdSvcDesc">Description</label><textarea id="gdSvcDesc" name="description" maxlength="400" style="min-height:80px"></textarea></div>
+      <div class="form-row">
+        <div class="form-field"><label for="gdSvcPrice">Starting price (R)</label><input type="number" id="gdSvcPrice" name="starting_price" min="0" step="0.01" placeholder="Empty = “Get a quote”"></div>
+        <div class="form-field"><label for="gdSvcNote">Price note</label>
+          <input type="text" id="gdSvcNote" name="price_note" list="gdNoteOptions" maxlength="40" placeholder="e.g. from, per page">
+          <datalist id="gdNoteOptions"><option value="from"><option value="per page"><option value="per design"><option value="per hour"><option value="per month"></datalist>
+        </div>
+      </div>
+      <div class="form-field"><label for="gdSvcIcon">Icon <span class="muted" style="font-weight:400">(Font Awesome name, e.g. pen-nib)</span></label>
+        <input type="text" id="gdSvcIcon" name="icon" maxlength="40" placeholder="pen-nib"></div>
+      <div class="form-field">
+        <label>Image <span class="muted" style="font-weight:400">(optional — replaces the icon on the card)</span></label>
+        <img id="gdServicePreview" class="upload-preview" alt="Preview" style="display:none">
+        <label class="upload-drop"><i class="fas fa-cloud-arrow-up"></i> Click to upload an image
+          <input type="file" id="gdServiceImage" accept="image/*" style="display:none">
+        </label>
+      </div>
+      <div class="form-field" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" name="is_visible" id="gdSvcVisible" style="width:auto" checked>
+        <label for="gdSvcVisible" style="margin:0">Visible on the public page</label>
+      </div>
+      <p class="form-error" id="gdServiceError" role="alert" style="display:none"></p>
+      <button type="submit" class="btn btn-primary btn-block">Save Service</button>
+    </form>
+  </div>
+</div>
+
+<!-- DESIGN QUOTE REQUEST MODAL -->
+<div class="modal-overlay" id="gdQuoteModal">
+  <div class="modal-box modal-wide">
+    <button class="modal-close" id="closeGdQuoteModal" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div id="gdQuoteBody"></div>
+  </div>
 </div>
 
 <!-- PORTFOLIO MODAL -->
@@ -426,6 +523,8 @@
 <script src="js/invoices.js"></script>
 <script src="js/contracts.js"></script>
 <script src="js/settings.js"></script>
+<script src="js/graphic-design-admin.js"></script>
+<script src="js/pdf-share.js"></script>
 <!-- PDF generation (admin only) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
